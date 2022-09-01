@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/php.css">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@1,300&display=swap" rel="stylesheet">
+
+    <title>Todolist</title>
+</head>
+
+<body>
+    <header>
+        <h1>MA TODOLIST :)</h1>
+    </header>
+    <main>
+        <form action="index.php" method="POST">
+            <ul>
+                <?php foreach ($tasks as $task) : ?>
+                    <li>
+                        <input id="tasks" name="tasks" type="checkbox" value="">
+                        <?php if ($task[3] == "priority-high") : ?>
+
+                            <label class="label" for="tasks" style="color: red;"><?= $task[0] ?>
+                                <!-- Pour afficher une date en retard	 -->
+                                <?php if (date_create(date('Y-m-d')) > date_create($task[2])) : ?>
+                                    <span>En retard</span>
+
+                                <?php endif ?><br>
+                                <p class="desc"><?= $task[1] ?></p>
+                            </label>
+
+                        <?php endif ?>
+                        <?php if ($task[3] == "priority-normal") : ?>
+
+                            <label class="label" for="tasks" style="color: green;"><?= $task[0] ?>
+                                <!-- Pour afficher une date en retard	 -->
+                                <?php if (date_create(date('Y-m-d')) > date_create($task[2])) : ?>
+                                    <span>En retard</span>
+
+                                <?php endif ?><br>
+                                <p class="desc"><?= $task[1] ?></p>
+                            </label>
+
+                        <?php endif ?>
+                        <?php if ($task[3] == "priority-low") : ?>
+
+                            <label class="label" for="tasks" style="color: black;"><?= $task[0] ?>
+                                <!-- Pour afficher une date en retard	 -->
+                                <?php if (date_create(date('Y-m-d')) > date_create($task[2])) : ?>
+                                    <span>En retard</span>
+
+                                <?php endif ?><br>
+                                <p class="desc"><?= $task[1] ?></p>
+                            </label>
+
+                        <?php endif ?>
+
+                    </li>
+                <?php endforeach ?>
+                <li>
+                    <input id="supprimer" type="submit" value="Supprimer" title="Supprimer les tâches sélectionnées">
+                </li>
+            </ul>
+        </form>
+        <hr>
+        <section>
+            <form action="index.php" method="POST">
+                <fieldset>
+                    <legend>Informations sur la tâche</legend>
+
+                    <ul>
+                        <li>
+                            <label for="title">Titre :</label>
+                            <input id="title" name="title" type="text">
+                        </li>
+
+                        <li>
+                            <label for="description">Description des tâches :</label>
+                            <textarea name="description" id="description" rows="5"></textarea>
+                        </li>
+
+                        <li>
+                            <!-- Travailler les jours en php -->
+                            <label for="day">Date de fin :</label>
+                            <select name="day" id="day">
+                                <?php for ($day = 1; $day <= 31; $day++) : ?>
+                                    <option value="<?= $day ?>"><?= $day ?></option>
+                                <?php endfor ?>
+                            </select>
+                        </li>
+
+                        <li>
+                            <select name="month">
+                                <option value="1">Janvier</option>
+                                <option value="2">Février</option>
+                                <option value="3">Mars</option>
+                                <option value="4">Avril</option>
+                                <option value="5">Mai</option>
+                                <option value="6">Juin</option>
+                                <option value="7">Juillet</option>
+                                <option value="8">Août</option>
+                                <option value="9">Septembre</option>
+                                <option value="10">Octobre</option>
+                                <option value="11">Novembre</option>
+                                <option value="12">Décembre</option>
+                            </select>
+                        </li>
+                        <li>
+                            <select name="year" id="year">
+                                <?php for ($year = date('Y'); $year < date('Y') + 5; $year++) : ?>
+                                    <option value="<?= $year ?>"><?= $year ?></option>
+                                <?php endfor ?>
+                            </select>
+                        </li>
+                        <li>
+                            <label for="priorité">Priorité :</label>
+                            <input name="priority" type="radio" value="priority-low">
+                            <label class="priority-low" for="priority-low">Basse</label>
+                            <input name="priority" type="radio" value="priority-normal">
+                            <label class="priority-normal" for="priority-normal">Normale</label>
+                            <input name="priority" type="radio" value="priority-hight">
+                            <label class="priority-hight" for="priority-hight">Haute</label>
+                        </li>
+
+                        <li>
+                            <input id="ajouter" type="submit" value="Ajouter" name="ajouter" title="Ajouter une nouvelle tâche">
+                        </li>
+
+                    </ul>
+                </fieldset>
+            </form>
+        </section>
+    </main>
+</body>
+
+</html>
